@@ -22,6 +22,14 @@ go install github.com/joustie/leostream-admin-cli
 
 The binary will then be installed in your GOPATH/bin/ directory.  You can add this directory to your PATH to make the CLI available from anywhere.
 
+In my case, I have the following in my ~/.bash_profile:
+
+```bash
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+```
+
+
 ## Usage
 
 ### Add environment variables
