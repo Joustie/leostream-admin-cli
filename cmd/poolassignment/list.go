@@ -33,39 +33,19 @@ var listCmd = &cobra.Command{
 			return
 		}
 
-		// Grab the first argument and test if it is a integer get the gateway by id
-		// if it is not an integer get the gateway by name
-		// if there are no arguments get all poolassignmentIDs
-		// if there is more than one argument, we will error out
 		policy_id, _ := cmd.Flags().GetString("policy_id")
-		poolassignment_id, _ := cmd.Flags().GetString("poolassignment_id")
-
-		if cmd.Flags().Changed("policy_id") && !cmd.Flags().Changed("poolassignment_id") {
-			 
-				poolassignments, err := client.GetPoolAssignments(policy_id)
-				if err != nil {
-					fmt.Println(err)
-					return
-				}
-				for _, poolassignment := range poolassignments {
-					bytes, _ := json.MarshalIndent(poolassignment, "", "\t")
-					fmt.Println(string(bytes))
-				}
-			 
-		} else if cmd.Flags().Changed("policy_id") && cmd.Flags().Changed("poolassignment_id"){
-			 
-				 
-				// Convert the poolassignmentID to a string and call the GetPoolAssignment function with it
-				poolassignment, err := client.GetPoolAssignment(policy_id, poolassignment_id)
-				if err != nil {
-					fmt.Println(err)
-					return
-				}
-				bytes, _ := json.MarshalIndent(poolassignment, "", "\t")
-				fmt.Println(string(bytes))
-			
+		
+		// Convert the poolassignmentID to a string and call the GetPoolAssignment function with it	 
+		poolassignments, err := client.GetPoolAssignments(policy_id)
+		if err != nil {
+			fmt.Println(err)
+			return
 		}
-
+		for _, poolassignment := range poolassignments {
+			bytes, _ := json.MarshalIndent(poolassignment, "", "\t")
+			fmt.Println(string(bytes))
+		}
+	
 	},
 }
 
