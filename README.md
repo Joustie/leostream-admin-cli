@@ -1,9 +1,8 @@
 # Leostream-admin-cli
 
 This repository contains a command line interface (CLI) for the Leostream Connection Broker REST API.  The CLI is written in Go and is compiled to a single binary that can be run on any platform that supports Go. Currently it can only fetch
-- centers
-- pools
-- gateways
+- pool assignments
+
 
 ## Installation
 
@@ -29,6 +28,19 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 ```
 
+## Building
+
+### Install go-task (MacOS)
+
+```bash
+% brew install go-task/tap/go-task
+```
+
+### Build the binary using task
+```bash
+% task build
+task: [build] GOFLAGS=-mod=mod go build -o bin/leostream-admin-cli main.go
+```
 
 ## Usage
 
@@ -39,57 +51,29 @@ Your user in Leostream needs permission to access the REST API.  You can create 
 ``` 
 export LEOSTREAM_API_USERNAME=<username>
 export LEOSTREAM_API_PASSWORD=<password>
-export LEOSTREAM_API_HOST=<host>
+export LEOSTREAM_API_API_URL=https://<api host>/rest/v1
 ```
 
-### List centers
 
-```
-% leostream-admin-cli list-centers
+
+### List pools-assignments
+
+```bash
+% leostream-admin-cli poolassignments list --policy 8
 {
-        "id": 1,
-        "name": "Vsphere",
-        "flavor": "I",
-        "status": 2,
-        "status_label": "Offline",
-        "type": "vcenter",
-        "type_label": "VMware vSphere and vCenter Server"
-}
-...
-```
-
-### List pools
-
-```
-% leostream-admin-cli list-pools
+        "id": 29,
+        "pool_name": "dev-pool",
+        "pool_id": 13
+},
 {
-        "id": 1,
-        "name": "All Desktops",
-        "pool_definition": {
-                "never_rogue": 0,
-                "use_vmotion": 0
-        },
-        "provision": {
-                "provision_on_off": 0,
-                "provision_threshold": 0,
-                "provision_max": 0,
-                "center": {}
-        }
+        "id": 30,
+        "pool_name": "acc-pool",
+        "pool_id": 14
+},
+{
+        "id": 31,
+        "pool_name": "prd-pool",
+        "pool_id": 15
 }
 ....
-```
-
-### List gateways
-
-```
-% leostream-admin-cli list-gateways
-{
-        "id": 1,
-        "name": "gateway_1",
-        "address": "gateway.hocmodo.nl",
-        "address_private": "10.0.0.1",
-        "load_balancer_id": 0,
-        "use_src_ip": 0,
-        "notes": ""
-}
 ```
