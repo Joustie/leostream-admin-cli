@@ -3,6 +3,20 @@
 This repository contains a command line interface (CLI) for the Leostream Connection Broker REST API.  The CLI is written in Go and is compiled to a single binary that can be run on any platform that supports Go. Currently it can only fetch
 - pool assignments
 
+This is a work in progress 
+## TODO
+- add more commands
+  - pool
+  - policy
+  - center
+  - gateway
+
+- add more tests
+- add more error handling
+- add more documentation
+- add more examples
+- add more output formats
+
 
 ## Installation
 
