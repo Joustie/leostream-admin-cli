@@ -21,6 +21,9 @@ var updateCmd = &cobra.Command{
 	Short: "Update Leostream pool assignment",
 	Long: `Update Leostream pool assignment by ID. For example:		
 		leostream-admin-cli poolassignment update --policy_id 1 --poolassignment_id 1 --pool_id 1 --protocolplan_id 1 --powerplan_id 1 --releaseplan_id 1 --display_mode 9 --offer_filter 0 --offer_quantity 1 --start_if_stopped 0`,
+	PreRun: func(cmd *cobra.Command, args []string) {
+		cmd.MarkFlagRequired("poolassignment_id")
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 
 		host := os.Getenv("LEOSTREAM_API_HOSTNAME")

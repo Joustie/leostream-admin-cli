@@ -2,7 +2,7 @@
 Copyright © 2023 Joost Evertse joustie@gmail.com
 
 */
-package pool
+package center
 
 import (
 	"github.com/spf13/cobra"
@@ -15,28 +15,28 @@ import (
 // listCmd represents the list command
 var listCmd = &cobra.Command{
 	Use:   "list",
-	Short: "List Leostream pools",
-	Long: `List Leostream pools by ID. For example:
-		leostream-admin-cli pool list`,
+	Short: "List Leostream centers",
+	Long: `List Leostream centers by ID. For example:
+		leostream-admin-cli center list`,
 	Run: func(cmd *cobra.Command, args []string) {
-			host := os.Getenv("LEOSTREAM_API_HOSTNAME")
+		host := os.Getenv("LEOSTREAM_API_HOSTNAME")
 			username := os.Getenv("LEOSTREAM_API_USERNAME")
 			password := os.Getenv("LEOSTREAM_API_PASSWORD")
 			
-				// Create a new Leostream client using the configuration values
+			// Create a new Leostream client using the configuration values
 			client, err := leostream.NewClient(&host, &username, &password)
 			if err != nil {
 				fmt.Println(err)
 				return
 			}
 		
-			pools, err := client.GetPools()
+			centers, err := client.GetCenters()
 			if err != nil {
 				fmt.Println(err)
 				return
 			}
-			for _, pool := range pools {
-				bytes, _ := json.MarshalIndent(pool, "", "\t")
+			for _, center := range centers {
+				bytes, _ := json.MarshalIndent(center, "", "\t")
 				fmt.Println(string(bytes))
 			}
 		
@@ -44,7 +44,5 @@ var listCmd = &cobra.Command{
 }
 
 func init() {
-
-	poolCmd.AddCommand(listCmd)
-
+	centerCmd.AddCommand(listCmd)
 }

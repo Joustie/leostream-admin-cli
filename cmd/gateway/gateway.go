@@ -2,7 +2,7 @@
 Copyright © 2023 Joost Evertse joustie@gmail.com
 
 */
-package poolassignment
+package gateway
 
 import (
 	"fmt"
@@ -11,9 +11,9 @@ import (
 	"github.com/joustie/go-leostream-admin-cli/cmd"
 )
 
-// poolassignmentCmd represents the poolassignment command
-var poolassignmentCmd = &cobra.Command{
-	Use:   "poolassignment",
+// gatewayCmd represents the gateway command
+var gatewayCmd = &cobra.Command{
+	Use:   "gateway",
 	Short: "A brief description of your command",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
@@ -22,15 +22,11 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Use list,get or update")
+		fmt.Println("Use list, get or update")
 	},
 }
 
 func init() {
-	poolassignmentCmd.PersistentFlags().String("policy_id", "", "PolicyID to get pool assignments for")
-	poolassignmentCmd.PersistentFlags().String("poolassignment_id", "", "PoolAssignmentID to get pool assignment for")
-	poolassignmentCmd.MarkPersistentFlagRequired("policy_id")
-
-	cmd.RootCmd.AddCommand(poolassignmentCmd)
-	
+	gatewayCmd.PersistentFlags().String("gateway_id", "", "Gateway_id to get gateway for")
+	cmd.RootCmd.AddCommand(gatewayCmd)
 }
