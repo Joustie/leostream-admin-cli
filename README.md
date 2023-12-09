@@ -1,19 +1,25 @@
 # Leostream-admin-cli
 
-This repository contains a command line interface (CLI) for the Leostream Connection Broker REST API.  The CLI is written in Go and is compiled to a single binary that can be run on any platform that supports Go. Currently it can only fetch
+This repository contains a command line interface (CLI) for the Leostream Connection Broker REST API.  The CLI is written in Go and is compiled to a single binary that can be run on any platform that supports Go. Currently it can fetch and update the following Leostream resources:
+
+- pools
+- centers
+- gateways
 - pool assignments
 
-This is a work in progress 
-## TODO
-- add more commands
-  - pool
-  - policy
-  - center
-  - gateway
+Additionally, it can create the following resources:
+- pool assignments
 
+*This is a work in progress*
+
+## TODO
+- add create command for
+        - pools
+        - gateways
+- add delete command for all resources
 - add more tests
 - add more error handling
-- add more documentation
+- add more documentation  how to use the CLI
 - add more examples
 - add more output formats
 
@@ -53,7 +59,7 @@ export PATH=$PATH:$GOPATH/bin
 ### Build the binary using task
 ```bash
 % task build
-task: [build] GOFLAGS=-mod=mod go build -o bin/leostream-admin-cli main.go
+task: [build] GOFLAGS=-mod=mod go build -o $GOPATH/bin/leostream-admin-cli main.go
 ```
 
 ## Usage
@@ -68,26 +74,6 @@ export LEOSTREAM_API_PASSWORD=<password>
 export LEOSTREAM_API_API_URL=https://<api host>/rest/v1
 ```
 
+### Execute a command
 
-
-### List pools-assignments
-
-```bash
-% leostream-admin-cli poolassignments list --policy 8
-{
-        "id": 29,
-        "pool_name": "dev-pool",
-        "pool_id": 13
-},
-{
-        "id": 30,
-        "pool_name": "acc-pool",
-        "pool_id": 14
-},
-{
-        "id": 31,
-        "pool_name": "prd-pool",
-        "pool_id": 15
-}
-....
-```
+Coming soon...

@@ -4,7 +4,7 @@ tasks:
     build:
         desc: Build the app
         cmds:
-        - GOFLAGS=-mod=mod go build -o $HOME/go/bin/leostream-admin-cli main.go 
+        - GOFLAGS=-mod=mod go build -o  $GOPATH/bin/leostream-admin-cli main.go 
 
     run: 
         desc: Run the app

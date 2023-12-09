@@ -13,8 +13,6 @@ import (
 	"github.com/joustie/leostream-client-go"
 )
 
-var ismemberof []string
-
 // updateCmd represents the update command
 var updateCmd = &cobra.Command{
 	Use:   "update",
@@ -79,7 +77,7 @@ var updateCmd = &cobra.Command{
 			}
 
 			// Add the filters to the poolassignment
-			data.Offer_filter_json = pa_filters
+			//data.Offer_filter_json = &pa_filters
 			if cmd.Flags().Changed("offer_quantity"){ 
 				data.Offer_quantity, _ = strconv.ParseInt(offer_quantity, 10, 64)
 			}
@@ -123,7 +121,6 @@ var updateCmd = &cobra.Command{
 }
 
 func init() {
-
 	updateCmd.Flags().StringArrayVarP(&ismemberof, "isMemberOf", "", []string{}, "SAML attribute or AD group to add to the pool assignment(can be used multiple times)")
 	updateCmd.Flags().String("pool_id", "", "Pool to associate with  the pool assignment")
 	updateCmd.Flags().String("protocolplan_id", "", "Protocol plan to associate with the pool assignment")

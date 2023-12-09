@@ -16,7 +16,7 @@ import (
 
 // rootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Use:   "go-leostream-admin-cli",
+	Use:   "leostream-admin-cli",
 	Short: "A go based CLI for the Leostream Admin API",
 	Long: `A go based CLI for the Leostream Admin API:
 

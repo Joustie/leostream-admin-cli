@@ -11,6 +11,8 @@ import (
 	"github.com/joustie/go-leostream-admin-cli/cmd"
 )
 
+var ismemberof []string
+
 // poolassignmentCmd represents the poolassignment command
 var poolassignmentCmd = &cobra.Command{
 	Use:   "poolassignment",
@@ -27,6 +29,7 @@ to quickly create a Cobra application.`,
 }
 
 func init() {
+
 	poolassignmentCmd.PersistentFlags().String("policy_id", "", "PolicyID to get pool assignments for")
 	poolassignmentCmd.PersistentFlags().String("poolassignment_id", "", "PoolAssignmentID to get pool assignment for")
 	poolassignmentCmd.MarkPersistentFlagRequired("policy_id")
