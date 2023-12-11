@@ -77,7 +77,7 @@ var updateCmd = &cobra.Command{
 			}
 
 			// Add the filters to the poolassignment
-			//data.Offer_filter_json = &pa_filters
+			data.Offer_filter_json = &pa_filters
 			if cmd.Flags().Changed("offer_quantity"){ 
 				data.Offer_quantity, _ = strconv.ParseInt(offer_quantity, 10, 64)
 			}
@@ -103,10 +103,6 @@ var updateCmd = &cobra.Command{
 		if cmd.Flags().Changed("start_if_stopped"){
 			data.Start_if_stopped, _ = strconv.ParseInt(start_if_stopped, 10, 64)
 		}
-
-		fmt.Println("Data: ", data.Start_if_stopped)
-		fmt.Printf("%+v\n", data)
-	 
 
 		// Update the poolassignment
 		stored, err := client.UpdatePoolAssignment(poolassignment_id, *data, policy_id ,nil)
