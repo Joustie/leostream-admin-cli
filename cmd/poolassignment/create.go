@@ -46,7 +46,7 @@ var createCmd = &cobra.Command{
 		data := new(leostream.PoolAssignment)
 		data.Display_mode = "9"
 		data.Offer_filter = "0"
-		data.Pool_id = 103
+		data.Pool_id, _ =  strconv.ParseInt(pool_id, 10, 64)
 		
 
 		//Create the poolassignment 
@@ -97,10 +97,6 @@ var createCmd = &cobra.Command{
 		if cmd.Flags().Changed("start_if_stopped"){
 			data.Start_if_stopped, _ = strconv.ParseInt(start_if_stopped, 10, 64)
 		}
-
-		//fmt.Println("Data: ", data.Start_if_stopped)
-	    fmt.Printf("%+v\n", data)
-	 
 
 		// Create the poolassignment
 		stored, err := client.CreatePoolAssignment(*data, policy_id, nil)
