@@ -16,7 +16,8 @@ import (
 var deleteCmd = &cobra.Command{
 	Use:   "delete",
 	Short: "Delete Leostream pool assignment",
-	Long: `	.`,
+	Long: `Delete Leostream pool assignment by ID. For example:
+		leostream-admin-cli poolassignment delete --policy_id 1 --poolassignment_id 1`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		cmd.MarkFlagRequired("poolassignment_id")
 	},

@@ -5,7 +5,7 @@ This repository contains a command line interface (CLI) for the Leostream Connec
 - pools
 - centers
 - gateways
-- pool assignments
+- [pool assignments](/docs/poolassignmenst.md)
 
 Additionally, it can create the following resources:
 - pool assignments
