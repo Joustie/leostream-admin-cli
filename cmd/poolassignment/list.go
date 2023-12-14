@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"os"
 	"github.com/joustie/leostream-client-go"
+	"github.com/jedib0t/go-pretty/v6/table"
 )
 
 // listCmd represents the list command
@@ -34,18 +35,34 @@ var listCmd = &cobra.Command{
 		}
 
 		policy_id, _ := cmd.Flags().GetString("policy_id")
-		
+
+		// If output_format flag is set to json, then output the results as json else output as text
+		var json_format bool
+		if cmd.Flags().Changed("json") {
+			json_format, _ = cmd.Flags().GetBool("json")
+		}  
+
 		// Convert the poolassignmentID to a string and call the GetPoolAssignment function with it	 
 		poolassignments, err := client.GetPoolAssignments(policy_id)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		for _, poolassignment := range poolassignments {
-			bytes, _ := json.MarshalIndent(poolassignment, "", "\t")
+
+		if json_format {
+			bytes, _ := json.MarshalIndent(poolassignments, "", "\t")
 			fmt.Println(string(bytes))
 		}
-	
+		if !json_format {
+			t := table.NewWriter()
+			t.SetOutputMirror(os.Stdout)
+			t.AppendHeader(table.Row{"Poolassignment ID", "Poolassignment name", "Pool ID"})
+			for _, poolassignment := range poolassignments {
+				t.AppendRow([]interface{}{poolassignment.ID, poolassignment.Pool_name, poolassignment.Pool_id})
+			}
+			t.Render()
+		}
+		
 	},
 }
 

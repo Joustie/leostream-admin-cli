@@ -25,6 +25,7 @@ var poolassignmentCmd = &cobra.Command{
 
 func init() {
 
+	poolassignmentCmd.PersistentFlags().BoolP("json", "j", false, "Output in JSON")
 	poolassignmentCmd.PersistentFlags().String("policy_id", "", "PolicyID to get pool assignments for")
 	poolassignmentCmd.PersistentFlags().String("poolassignment_id", "", "PoolAssignmentID to get pool assignment for")
 	poolassignmentCmd.MarkPersistentFlagRequired("policy_id")

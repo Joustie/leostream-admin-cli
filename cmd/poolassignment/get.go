@@ -10,6 +10,8 @@ import (
 	"fmt"
 	"os"
 	"github.com/joustie/leostream-client-go"
+	"reflect"
+	"github.com/jedib0t/go-pretty/v6/table"
 )
 
 // getCmd represents the get command
@@ -37,30 +39,40 @@ var getCmd = &cobra.Command{
 		policy_id, _ := cmd.Flags().GetString("policy_id")
 		poolassignment_id, _ := cmd.Flags().GetString("poolassignment_id")
 
+		// If output_format flag is set to json, then output the results as json else output as text
+		var json_format bool
+		if cmd.Flags().Changed("json") {
+			json_format, _ = cmd.Flags().GetBool("json")
+		}
+
 		// Convert the poolassignmentID to a string and call the GetPoolAssignment function with it
 		poolassignment, err := client.GetPoolAssignment(policy_id, poolassignment_id)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		bytes, _ := json.MarshalIndent(poolassignment, "", "\t")
-		fmt.Println(string(bytes))
+		
+		if json_format {
+			bytes, _ := json.MarshalIndent(poolassignment, "", "\t")
+			fmt.Println(string(bytes))
+		}
 
+		if !json_format {
+			t := table.NewWriter()
+			t.SetOutputMirror(os.Stdout)
+			t.AppendHeader(table.Row{"Key", "Value"})
+			values := reflect.ValueOf(*poolassignment)
+			types := values.Type()
+			for i := 0; i < values.NumField(); i++ {
+				t.AppendRow([]interface{}{types.Field(i).Name, values.Field(i) })
+			}
+			t.Render()
+		}
 	},
 }
 
 func init() {
 
-	
 	poolassignmentCmd.AddCommand(getCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// getCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// getCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
