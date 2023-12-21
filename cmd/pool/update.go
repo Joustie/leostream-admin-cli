@@ -54,6 +54,22 @@ var updateCmd = &cobra.Command{
 		}
 
 		// update the pool
+
+		if cmd.Flags().Changed("desktop_attributes"){
+		
+			// Loop through the desktop_attributes array and create a pool attribute for each one
+			for _, v := range desktop_attributes {
+			// Create a new Pool Attribute
+				var pool_attribute leostream.PoolAttributes
+				pool_attribute.Text_to_match = v
+				pool_attribute.Vm_table_field= "name"
+				pool_attribute.Condition_type = "ew"
+			
+				// Add the pool attribute to the pool
+				pool.Pool_definition.Attributes = append(pool.Pool_definition.Attributes, pool_attribute)
+			}
+		}
+
 		if cmd.Flags().Changed("name"){
 			pool.Name = name
 		}
@@ -94,6 +110,10 @@ var updateCmd = &cobra.Command{
 			pool.Provision.Center.Type  = center_type
 		}
 
+		if pool.Provision.Center.ID == 0 {
+			pool.Provision.Center = nil
+		}
+
 		// Update the pool
 		stored, err := client.UpdatePool(pool_id, *pool, nil)
 		if err != nil {
@@ -107,7 +127,7 @@ var updateCmd = &cobra.Command{
 }
 
 func init() {
-
+	updateCmd.Flags().StringArrayVarP(&desktop_attributes, "desktop_attributes", "", []string{}, "Desktop attributes which determine the desktops to be provisioned (can be used multiple times)")
 	updateCmd.Flags().String("name", "", "Pool name")
 	updateCmd.Flags().String("display_name", "", "Pool display name in the UI")
 	updateCmd.Flags().String("provision_threshold", "", "Threshold at which to provision desktops")

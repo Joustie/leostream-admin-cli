@@ -10,6 +10,8 @@ import (
 	"github.com/joustie/go-leostream-admin-cli/cmd"
 )
 
+var desktop_attributes []string
+
 // poolCmd represents the pool command
 var poolCmd = &cobra.Command{
 	Use:   "pool",
